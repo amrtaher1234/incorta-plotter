@@ -22,9 +22,9 @@ export default function Header() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <AppBar>
+      <AppBar position="relative">
         <Toolbar className={classes.toolbar}>
-            <Typography variant="h5">Incorta Plotter</Typography>
+            <Typography variant="h6">Incorta Plotter</Typography>
         </Toolbar>
       </AppBar>
     </div>
