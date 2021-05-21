@@ -1,29 +1,29 @@
-import { ColumnItem, ColumnItemFunction } from "../models";
+import { IColumnItem, IColumnItemFunction } from "../models";
 
-const ColumnsMockData: ColumnItem[] = [
+const ColumnsMockData: IColumnItem[] = [
     {
         name: 'Product',
-        function: ColumnItemFunction.dimension
+        function: IColumnItemFunction.dimension
     },
     {
         name: 'Year',
-        function: ColumnItemFunction.dimension
+        function: IColumnItemFunction.dimension
     },
     {
         name: 'Country',
-        function: ColumnItemFunction.dimension
+        function: IColumnItemFunction.dimension
     },
     {
         name: 'Cost',
-        function: ColumnItemFunction.measure
+        function: IColumnItemFunction.measure
     },
     {
         name: 'Revenue',
-        function: ColumnItemFunction.measure
+        function: IColumnItemFunction.measure
     },
     {
         name: 'Units sold',
-        function: ColumnItemFunction.measure
+        function: IColumnItemFunction.measure
     }
 ]
 

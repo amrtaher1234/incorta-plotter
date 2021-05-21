@@ -1,9 +1,9 @@
-export interface ColumnItem {
+export interface IColumnItem {
     name: string;
-    function: ColumnItemFunction
+    function: IColumnItemFunction
 }
 
-export enum ColumnItemFunction {
+export enum IColumnItemFunction {
     dimension = 'dimension',
     measure = 'measure'
 }
