@@ -1,3 +1,4 @@
-export const ADD_COLUMN_ITEM = 'addItem';
-export const DELETE_COLUMN_ITEM = 'deleteItem';
-export const CLEAR_COLUMN_ITEMS = 'clearItems';
+export const SET_DIMENSION = 'setDimension';
+export const ADD_MEASURE = 'addMeasure';
+export const DELETE_MEASURE = 'deleteMeasure';
+export const CLEAR_MEASURES = 'clearItems';

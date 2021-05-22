@@ -1,25 +1,25 @@
 import React, { createContext, useReducer } from "react";
-import { IColumnItem, IColumnItemFunction } from "../models";
+import { IColumnItem } from "../models";
 import { Action } from "./actions";
 import {
-  ADD_COLUMN_ITEM,
-  CLEAR_COLUMN_ITEMS,
-  DELETE_COLUMN_ITEM,
+  ADD_MEASURE,
+  CLEAR_MEASURES,
+  DELETE_MEASURE,
+  SET_DIMENSION,
 } from "./constants";
 type ApplicationContextProviderProps = { children: React.ReactNode };
 type Dispatch = (action: Action) => void;
 
 interface ApplicationState {
-  dimensions: IColumnItem[];
+  dimension: IColumnItem | any;
   measures: IColumnItem[];
   data: any;
 }
 const initialState: ApplicationState = {
-  dimensions: [],
+  dimension: null,
   measures: [],
   data: null,
 };
-
 const ApplicationContext =
   createContext<{ state: ApplicationState; dispatch: Dispatch } | undefined>(
     undefined
@@ -30,30 +30,41 @@ function applicationReducer(
   action: Action
 ): ApplicationState {
   switch (action.type) {
-    case ADD_COLUMN_ITEM: {
-      const items =
-        action.payload.function === IColumnItemFunction.dimension
-          ? state.dimensions
-          : state.measures;
-      items.push(action.payload.item);
-      const key = action.payload.function + "s";
-      return { [key]: items, ...state };
+    case SET_DIMENSION: {
+      if (state.dimension && action.payload.item !== null) {
+        return state;
+      }
+      return {
+        ...state,
+        dimension: action.payload.item,
+      };
     }
-    case DELETE_COLUMN_ITEM: {
-      let items =
-        action.payload.function === IColumnItemFunction.dimension
-          ? state.dimensions
-          : state.measures;
+    case ADD_MEASURE: {
+      const items = state.measures;
+
+      if (!!items.some((item) => item.name === action.payload.item.name)) {
+        return state;
+      }
+      return {
+        ...state,
+        measures: [...items, action.payload.item],
+      };
+    }
+    case DELETE_MEASURE: {
+      let items = state.measures;
       const itemIndex = items.findIndex((item) => {
         return item.name === action.payload.item.name;
       });
-      items = itemIndex !== -1 ? items.splice(itemIndex, 1) : items;
-      const key = action.payload.function + "s";
-      return { [key]: items, ...state };
+      if (itemIndex !== -1) {
+        items.splice(itemIndex, 1);
+      }
+      return { ...state, measures: items };
     }
-    case CLEAR_COLUMN_ITEMS: {
-      const key = action.payload.function + "s";
-      return { [key]: [], ...state };
+    case CLEAR_MEASURES: {
+      return {
+        ...state,
+        measures: [],
+      };
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);

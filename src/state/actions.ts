@@ -1,42 +1,41 @@
 import { IColumnItemFunction, IColumnItem } from "../models";
 import {
-  ADD_COLUMN_ITEM,
-  CLEAR_COLUMN_ITEMS,
-  DELETE_COLUMN_ITEM,
+  CLEAR_MEASURES,
+  DELETE_MEASURE,
+  SET_DIMENSION,
+  ADD_MEASURE,
 } from "./constants";
 export interface Action {
   type: string;
   payload: any;
 }
-export function addColumnItem(
-  item: IColumnItem,
-  functionType: IColumnItemFunction
-): Action {
+export function deleteMeasure(item: IColumnItem): Action {
   return {
-    type: ADD_COLUMN_ITEM,
+    type: DELETE_MEASURE,
     payload: {
       item,
-      function: functionType,
     },
   };
 }
-export function deleteColumnItem(
-  item: IColumnItem,
-  functionType: IColumnItemFunction
-): Action {
+export function clearMeasures(): Action {
   return {
-    type: CLEAR_COLUMN_ITEMS,
+    type: CLEAR_MEASURES,
+    payload: {},
+  };
+}
+export function setDimension(item: IColumnItem | any) {
+  return {
+    type: SET_DIMENSION,
     payload: {
       item,
-      function: functionType,
     },
   };
 }
-export function clearItems(functionType: IColumnItemFunction): Action {
+export function addMeasure(item: IColumnItem) {
   return {
-    type: DELETE_COLUMN_ITEM,
+    type: ADD_MEASURE,
     payload: {
-      function: functionType,
+      item,
     },
   };
 }
