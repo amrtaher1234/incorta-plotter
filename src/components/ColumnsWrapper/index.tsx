@@ -5,17 +5,12 @@ import {
   Theme,
   createStyles,
 } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { IColumnItem, IColumnItemFunction } from "../../models";
 import { Typography } from "@material-ui/core";
 import ColumnItem from "../ColumnItem";
-import { useApplicationState } from "../../state";
 
 export interface ColumnsDrawerProps {
   open: boolean;
@@ -25,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
-      flexDirection: "column"
+      flexDirection: "column",
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -37,9 +32,12 @@ const useStyles = makeStyles((theme: Theme) =>
       top: "unset",
       flexShrink: 0,
     },
-    drawerHeader: {
+    wrapperHeader: {
       display: "flex",
+      alignItems: "center",
       padding: theme.spacing(0, 1),
+      fontSize: 20,
+      fontWeight: "bold",
       ...theme.mixins.toolbar,
     },
   })
@@ -76,21 +74,15 @@ export default function ColumnsWrapper(props: ColumnsDrawerProps) {
     <div className={classes.root}>
       <CssBaseline />
       <div className={classes.drawer}>
-        <div className={classes.drawerHeader}>
-         Columns
-        </div>
+        <div className={classes.wrapperHeader}>Columns</div>
         <Divider />
-        <Typography variant="h6">Dimensions</Typography>
         <List>
-          {dimensions?.map((item, index) => (
-            <ColumnItem function={item.function} name={item.name} key={index} />
-          ))}
-        </List>
-        <Divider />
-        <Typography variant="h6">Measures</Typography>
-        <List>
-          {measures?.map((item, index) => (
-            <ColumnItem function={item.function} name={item.name} key={index} />
+          {[...measures, ...dimensions]?.map((item, index) => (
+            <ColumnItem
+              function={item.function}
+              name={item.name}
+              key={item.name + index}
+            />
           ))}
         </List>
       </div>
