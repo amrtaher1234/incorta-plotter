@@ -34,3 +34,7 @@ There is a checkbox in the application for handling multiple charts or a single 
 I tried my best to unit test everything and I created a wrapper around my `index.tsx` main component to test components that depend on the app's initiation.
 
 I have not tested everything due to time and I choosed to implement first then add tests later on.
+
+## Final Note
+
+I used `Typescript` here cause simply it makes coding and testing my code a lot easier and because I simply enjoy coding with it.
