@@ -1,46 +1,36 @@
-# Getting Started with Create React App
+# Incorta Plotter
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Structure
 
-## Available Scripts
+Here I decided to wrap my application into the following structure:
 
-In the project directory, you can run:
+- `components` folder is responsible for having the generic components that will display UI or column items
+- `utils` have some basic functions that are used for utilities
+- `state` is a folder that contains my context setup that holds the app's global state (selected measures/dimensions)
+- `api` have my calls to the backend or api side
 
-### `npm start`
+## Used Libs and why I used them
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+I used multiple libraries here and I wanted to explain why.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- `React Query` could be an overkill here but I wanted to try it and to have the ability to get the `loading` and `error` objects out of the box
+- `react dnd` is used mainly for items dragging
+- `material` for design
+- `jest` for testing
+- `nivo` for charts
 
-### `npm test`
+## Why I used context and how it is made
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Basically I used it to life all of the logic of handling the dimensions added or measures added away from the components and making a single `reducer` handling all of such logic.
 
-### `npm run build`
+inside the `state/index.ts` file there will be the reducer and the context basic initilization.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## My two cents on using `Nivo` charts
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+There is a checkbox in the application for handling multiple charts or a single chart. I made the single chart display data and the Y-Axis spans in a `log` of 5 increase or decrease. this made to make multiple plots look good, if a single plot is plotted a `linear` plot type would be choosen.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Testing
 
-### `npm run eject`
+I tried my best to unit test everything and I created a wrapper around my `index.tsx` main component to test components that depend on the app's initiation.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+I have not tested everything due to time and I choosed to implement first then add tests later on.
