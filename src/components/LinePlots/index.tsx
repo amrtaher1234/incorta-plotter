@@ -40,6 +40,7 @@ const LinePlots = (props: LinePlotsProps) => {
               tickPadding: 5,
               tickRotation: 0,
               legendOffset: 36,
+              legend: props.data[0].legends[0],
               legendPosition: "middle",
             } as any
           }
@@ -51,6 +52,7 @@ const LinePlots = (props: LinePlotsProps) => {
               tickRotation: 0,
               legendOffset: -40,
               legendPosition: "middle",
+              legend: props.data.length > 1 ? "" : props.data[0].legends[1],
             } as any
           }
           pointSize={10}

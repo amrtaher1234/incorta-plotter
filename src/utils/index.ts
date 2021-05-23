@@ -17,7 +17,7 @@ export const mapPlotData = (plotterData: IPlotterData[]): INivoLineData[] => {
       );
     }
     const temp: INivoLineData = {
-      id: `${dimension.name} / ${plotterData[index].name}`,
+      id: `${plotterData[index].name}`,
       color: colors[(index % plotterData.length) - 1],
       data: [] as any[],
       legends: [],
