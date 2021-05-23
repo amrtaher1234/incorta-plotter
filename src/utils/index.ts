@@ -30,6 +30,6 @@ export const mapPlotData = (plotterData: IPlotterData[]): INivoLineData[] => {
     }
     return mappedData;
   } catch (err) {
-    return [];
+    throw new Error(err);
   }
 };

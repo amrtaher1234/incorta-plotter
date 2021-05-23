@@ -13,7 +13,6 @@ import { Typography } from "@material-ui/core";
 import ColumnItem from "../ColumnItem";
 
 export interface ColumnsDrawerProps {
-  open: boolean;
   columnItems: IColumnItem[];
 }
 const useStyles = makeStyles((theme: Theme) =>
@@ -46,7 +45,6 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ColumnsWrapper(props: ColumnsDrawerProps) {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = useState(props.open);
   const [dimensions, setDimensions] = useState([] as IColumnItem[]);
   const [measures, setMeasures] = useState([] as IColumnItem[]);
   useEffect(() => {
@@ -62,14 +60,6 @@ export default function ColumnsWrapper(props: ColumnsDrawerProps) {
     );
   }, [props.columnItems]);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -77,7 +67,7 @@ export default function ColumnsWrapper(props: ColumnsDrawerProps) {
         <div className={classes.wrapperHeader}>Columns</div>
         <Divider />
         <List>
-          {[...measures, ...dimensions]?.map((item, index) => (
+          {[...dimensions, ...measures]?.map((item, index) => (
             <ColumnItem
               function={item.function}
               name={item.name}

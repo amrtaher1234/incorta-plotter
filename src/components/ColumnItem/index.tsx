@@ -6,7 +6,7 @@ import TimelineIcon from "@material-ui/icons/Timeline";
 import { useDrag } from "react-dnd";
 
 export default function ColumnItem(props: IColumnItem) {
-  const [{ isDragging }, drag] = useDrag(() => ({
+  const [{}, drag] = useDrag(() => ({
     type: props.function,
     item: { column: props },
     end: (item, monitor) => {
@@ -26,9 +26,9 @@ export default function ColumnItem(props: IColumnItem) {
       <ListItem style={{ margin: 20 }} ref={drag} button>
         <ListItemIcon>
           {props.function === IColumnItemFunction.dimension ? (
-            <TimelineIcon />
+            <TimelineIcon data-testid="item-timelineicon" />
           ) : (
-            <SpeedIcon />
+            <SpeedIcon data-testid="item-speedicon" />
           )}
         </ListItemIcon>
         <ListItemText primary={props.name} />

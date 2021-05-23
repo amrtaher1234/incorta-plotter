@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-export default function ColumnButtonWrapper(
+export default function AddedColumnItemsWrapper(
   props: ColumnButtonWrapperInterface
 ) {
   const { columnItems, type, onClear, onDeleteItem, onItemAdded } = props;

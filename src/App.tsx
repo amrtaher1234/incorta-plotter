@@ -1,8 +1,10 @@
 import {
   Backdrop,
   Button,
+  Checkbox,
   Container,
   createStyles,
+  FormControlLabel,
   makeStyles,
   Theme,
   Typography,
@@ -11,10 +13,9 @@ import React from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useQuery } from "react-query";
 import "./App.css";
-import ColumnButtonWrapper from "./components/ColumnButtonWrapper";
+import AddedColumnItemsWrapper from "./components/AddedColumnItemsWrapper";
 import ColumnsWrapper from "./components/ColumnsWrapper";
 import Header from "./components/Header";
-import ColumnsMockData from "./mocks/columns.mock";
 import { IColumnItem, IColumnItemFunction } from "./models";
 import { useApplicationState } from "./state";
 import {
@@ -24,7 +25,7 @@ import {
   setDimension,
 } from "./state/actions";
 import { fetchColumns, fetchPlotData } from "./api";
-import LinePlot from "./components/LinePlot";
+import LinePlots from "./components/LinePlots";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function App() {
   const { dispatch, state } = useApplicationState();
-
+  const [multiplePlots, setMultiplePlots] = React.useState(false);
   const columnQuery = useQuery<IColumnItem[]>("columnsData", fetchColumns);
 
   const plotQuery = useQuery(
@@ -88,10 +89,9 @@ function App() {
       <main className={classes.main}>
         <ColumnsWrapper
           columnItems={columnQuery.data ? columnQuery.data : []}
-          open={true}
         />
         <Container>
-          <ColumnButtonWrapper
+          <AddedColumnItemsWrapper
             type={IColumnItemFunction.dimension}
             columnItems={state.dimension ? [state.dimension] : []}
             onClear={() => dispatch(setDimension(null))}
@@ -99,7 +99,7 @@ function App() {
             onItemAdded={handleDimensionAddition}
           />
 
-          <ColumnButtonWrapper
+          <AddedColumnItemsWrapper
             type={IColumnItemFunction.measure}
             columnItems={state.measures}
             onClear={() => dispatch(clearMeasures())}
@@ -115,14 +115,33 @@ function App() {
           >
             Draw Analytics
           </Button>
+          <FormControlLabel
+            style={{ margin: 10 }}
+            control={
+              <Checkbox
+                checked={multiplePlots}
+                onChange={(v) => {
+                  setMultiplePlots(!multiplePlots);
+                }}
+                name="checkedB"
+                color="primary"
+              />
+            }
+            label="Multiple Plots"
+          />
+
           {plotQuery.isError && (
             <Typography color="error" variant="h5">
               Error while fetching plot data: {plotQuery.error}
             </Typography>
           )}
-          {plotQuery.data?.map((d, index) => {
-            return <LinePlot key={index} data={d} />;
-          })}
+          {!multiplePlots && plotQuery.data && (
+            <LinePlots data={plotQuery.data} />
+          )}
+          {multiplePlots &&
+            plotQuery.data?.map((d, index) => {
+              return <LinePlots key={index} data={[d]} />;
+            })}
         </Container>
       </main>
     </div>
