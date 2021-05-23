@@ -2,9 +2,9 @@ import { IPlotterData, INivoLineData } from "./../models";
 
 const colors = [
   "hsl(351, 70%, 50%)",
-  "hsl(262, 70%, 50%)",
-  "hsl(349, 70%, 50%)",
-  "hsl(287, 70%, 50%)",
+  "hsl(262, 20%, 50%)",
+  "hsl(349, 30%, 50%)",
+  "hsl(287, 50%, 50%)",
 ];
 
 export const mapPlotData = (plotterData: IPlotterData[]): INivoLineData[] => {
