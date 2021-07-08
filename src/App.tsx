@@ -53,7 +53,7 @@ function App() {
 
   const plotQuery = useQuery(
     "plotData",
-    fetchPlotData.bind(null, state.dimension, state.measures),
+    fetchPlotData(state.dimension, state.measures),
     {
       enabled: false,
     }
@@ -65,7 +65,6 @@ function App() {
     }
   };
   const handleMeasureAddition = (item: IColumnItem) => {
-    console.log(state);
     if (
       !state.measures.length ||
       state.measures.every((i) => i.name !== item.name)
